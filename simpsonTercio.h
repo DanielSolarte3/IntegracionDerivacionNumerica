@@ -79,7 +79,7 @@ namespace integracion{
 			
 			double df4E = encontrarMaximo(x[0], x[n],((x[n]-x[0])/(double)n), str_d4fn);
 			
-			cout << "d4: " << df4E << endl;
+			cout << "Maximo valor de la 4ta derivada en el intervalo (" << x[0] << "," << x[n] << "): " << df4E << endl;
 			
 			double error13 = (-(pow((x[n] - x[0])/2.0f,5.0f)/90.0f))*df4E;
 			

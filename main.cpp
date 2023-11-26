@@ -39,7 +39,7 @@ void integracion_trapecio(string title,
 * @brief Integracion usando el metodo de simpson
 * @param title Titulo del caso
 * @param str_fn Texto de la funcion
-* @param str_d4fn Texto de la segunda derivada de la funcion
+* @param str_d4fn Texto de la cuarta derivada de la funcion
 * @param a Limite inferior
 * @param b Limite superior
 * @param n Cantidad de segmentos

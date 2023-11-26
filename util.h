@@ -158,12 +158,12 @@ namespace util{
 		double valorMax=0.0f;
 		Expression f(str_fn);
 		double valor=f(a);
-		cout << "Valores maximos" << endl;
+		// cout << "Valores maximos" << endl;
 		for(double aux = a; aux<=b; aux+=paso){
 			valor=f(aux);
 			if(fabs(valorMax) < fabs(valor)){valorMax=valor;}
 			
-			cout << "v: " << valor << "  vm:" << valorMax << endl;
+			// cout << "v: " << valor << "  vm:" << valorMax << endl;
 		}
 		return valorMax;
 	}
