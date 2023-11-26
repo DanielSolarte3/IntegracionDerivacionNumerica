@@ -15,6 +15,7 @@ using std::cout;
 using std::endl;
 
 using util::crear_tabla;
+using util::imprimir_tabla;
 
 namespace integracion{
 	/**
@@ -27,7 +28,15 @@ namespace integracion{
 		* @param p_fn Funcion a integrar
 		*/
 		explicit simpson13(string p_fn):str_fn(p_fn){}
-	
+		
+		/**
+		* @brief Calcula la integral en el intervalo dado por el metodo de simpson 1/3
+		* @param a Limite inferior
+		* @param b Limite superior
+		* @param n Cantidad de segmentos
+		* @param str_d4fn Texto de la cuarta derivada de la funcion
+		* @return Integral aproximada
+		*/
 		double calcular(double a, double b, int n, string str_d4fn){
 			if (n == 0 || n % 2 != 0) return NAN;
 			if(a > b) std::swap(a , b);
@@ -36,10 +45,18 @@ namespace integracion{
 			vector<double> y;
 			
 			crear_tabla(x, y, a, b, n, str_fn);
+			imprimir_tabla(x,y," X ", " F(x) ");
 			
 			return calcular(x, y, str_d4fn);
 		}
 		
+		/**
+		* @brief Calcula la integral con la tabla dada por el metodo de simpson 1/3
+		* @param x Referencia a la variable independiente
+		* @param y Referencia a la variable dependiente
+		* @param str_d4fn Texto de la cuarta derivada de la funcion
+		* @return Integral aproximada
+		*/
 		static double calcular(vector<double> &x,
 							   vector<double> &y, 
 							   string str_d4fn){
@@ -60,7 +77,7 @@ namespace integracion{
 				}
 			}
 			
-			double df4E = encontrarMaximo(x[0], x[n], 0.001f, str_d4fn);
+			double df4E = encontrarMaximo(x[0], x[n],((x[n]-x[0])/(double)n), str_d4fn);
 			
 			cout << "d4: " << df4E << endl;
 			

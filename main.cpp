@@ -10,6 +10,7 @@
 #include <cmath>
 
 using std::cout;
+using std::cin;
 using std::endl;
 using std::string;
 using std::setprecision;
@@ -37,13 +38,18 @@ void integracion_trapecio(string title,
 /**
 * @brief Integracion usando el metodo de simpson
 * @param title Titulo del caso
-* @param x Variable independiente
-* @param y Variable dependiente
+* @param str_fn Texto de la funcion
+* @param str_d4fn Texto de la segunda derivada de la funcion
+* @param a Limite inferior
+* @param b Limite superior
+* @param n Cantidad de segmentos
 */
 void integracion_simpson(string title,
+						 string str_fn,
 						 string str_d4fn,
-						 vector<double> &x,
-						 vector<double> &y);
+						 double a,
+						 double b,
+						 int n);
 
 /**
 * @brief Integracion usando el metodo de romberg
@@ -51,7 +57,7 @@ void integracion_simpson(string title,
 * @param str_fn Funcion a integrar
 * @param a Limite inferior
 * @param b Limite superior
-* @param Numero de aproximaciones
+* @param k Numero de aproximaciones
 */
 void integracion_romberg(string title,
 						 string str_fn,
@@ -81,13 +87,18 @@ int main (int argc, char *argv[]) {
 		
 		switch(opcion){
 		case 1:
-			integracion_simpson();
+			integracion_simpson("Integracion numerica de sen(x) + sen(2.5*x)^3 ",
+								"sin(x) + (sin(2.5*x))^3",
+								"sin(x) + 7.5*((~312.5*((cos(2.5*x))^2)*sin(2.5*x)) + (109.375*((sin(2.5*x))^3)))",
+								0,
+								1.82584,
+								32);
 			break;
 		case 2:
-			integracion_romberg();
+			//integracion_romberg();
 			break;
 		case 3:
-			derivar();
+			//derivar();
 			break;
 		case 0:
 			cout << "Saliendo..." << endl;
@@ -100,54 +111,19 @@ int main (int argc, char *argv[]) {
 	
 	return 0;
 }
-
-void integracion_trapecio(string title,
-						  string str_fn,
-						  string str_d2fn,
-						  double a,
-						  double b,
-						  int n){
-	
-	cout << title << endl;
-	
-	//Crear una instancia de trapecio
-	trapecio t(str_fn);
-	
-	vector<double> x;
-	vector<double> y;
-	
-	t.crear_tabla(x,y,a,b,n);
-	
-	imprimir_tabla(x,y,"   x   ", "   y   ");
-	
-	//Calcular el valor de la integral
-	double valor = t.calcular(x,y);
-	double error = t.calcularError(a,b,str_d2fn);
-	
-	cout << "Valor de la integral entre "
-		 << a
-		 << " y "
-		 << b
-		 << " = "
-		 << setprecision(8)
-		 << valor << endl
-		 << "Error de la aproximacion = "
-		 << fabs(error) << endl;
-	
-}
 	
 void integracion_simpson(string title,
+						 string str_fn,
 						 string str_d4fn,
-						vector<double> &x,
-						vector<double> &y) {
-	cout << title << ":" << " por simpson." << endl;
+						 double a,
+						 double b,
+						 int n) {
+	cout << title << ":" << " por simpson 1/3." << endl;
 	
-	simpson s;
-	
-	imprimir_tabla(x, y, "X", "Y");
+	simpson13 s(str_fn);
 	
 	//Calcular el valor de la integral
-	double valor = s.calcular(x, y, str_d4fn);
+	double valor = s.calcular(a,b,n, str_d4fn);
 	
 	cout << "Integral ajustada: "
 		<< valor << endl;

@@ -130,7 +130,7 @@ namespace util{
 					 int n,
 					 string f_str){
 		Expression f(std::move(f_str));
-		
+		cout << "F(x)=" << f.str() << endl;
 		x.resize(n + 1);
 		y.resize(n + 1);
 		
@@ -158,9 +158,12 @@ namespace util{
 		double valorMax=0.0f;
 		Expression f(str_fn);
 		double valor=f(a);
+		cout << "Valores maximos" << endl;
 		for(double aux = a; aux<=b; aux+=paso){
 			valor=f(aux);
 			if(fabs(valorMax) < fabs(valor)){valorMax=valor;}
+			
+			cout << "v: " << valor << "  vm:" << valorMax << endl;
 		}
 		return valorMax;
 	}
