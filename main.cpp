@@ -7,6 +7,7 @@
 #include "util.h"
 #include "simpson.h"
 #include "romberg.h"
+#include "derivacion.h"
 #include <cmath>
 
 using std::cout;
@@ -19,6 +20,7 @@ using integracion::trapecio;
 using integracion::simpson;
 using integracion::romberg;
 using integracion::resultado_romberg;
+using derivacion::derivada;
 using util::imprimir_tabla;
 /**
 * @brief Integracion usando el metodo del trapecio
@@ -65,6 +67,23 @@ void integracion_romberg(string title,
 						 double b,
 						 int k);
 
+/** 
+* @brief Derivacion numerica para primeras derivadas
+* @param title Titulo del caso
+* @param str_fn Texto de la funcion
+* @param str_fn Texto de la primera derivada de la funcion
+* @param xi Valor en el que se evalua la primera derivada de la funcion
+* @param paso Incremento de xi
+* @param diferencias Variable entre 1 y 2 dependiendo de las diferencias que se deseen usar para el calculo
+* @param direccion Variable entre -1 y 1 dependiendo de la direccion en la que se desee calcular la derivada
+*/
+void primera_derivada(string title,
+					  string str_fn,
+					  string str_dfn,
+					  double xi,
+					  double paso,
+					  int direccion);
+
 int main (int argc, char *argv[]) {
 	
 	// Menu principal para pedir que caso usar
@@ -95,10 +114,19 @@ int main (int argc, char *argv[]) {
 								32);
 			break;
 		case 2:
-			//integracion_romberg();
+			integracion_romberg("Integracion numerica de sen(x) + sen(2.5*x)^3 ",
+								"sin(x) + (sin(2.5*x))^3",
+								0,
+								1.82584,
+								4);
 			break;
 		case 3:
-			//derivar();
+			primera_derivada("Derivacion numerica de ln(x)*cos(x) ",
+							 "ln(x)*cos(x)",
+							 "(cos(x)/x)-(sin(x)*ln(x))",
+							 6.35f,
+							 0.1,
+							 0);
 			break;
 		case 0:
 			cout << "Saliendo..." << endl;
@@ -135,7 +163,7 @@ void integracion_romberg(string title,
 						  double b,
 						  int k){
 	
-	cout << title << endl;
+	cout << title << " por metodo de romberg" << endl;
 	
 	//Crear una instancia de romberg
 	romberg r(str_fn);
@@ -153,7 +181,28 @@ void integracion_romberg(string title,
 		<< setprecision(8)
 		<< res.valor << endl
 		<< "El error de aproximacion es = "
-		<< setprecision(8) << res.error << endl;
+		<< setprecision(8) << res.error << "%" << endl;
 	
+}
+void primera_derivada(string title,
+					  string str_fn,
+					  string str_dfn,
+					  double xi,
+					  double paso,
+					  int direccion){
+	cout << title << endl;
+	
+	derivada dx(str_fn);
+	
+	//Calcular la primera derivada con primera diferencia central
+	cout << "Tabla para la primera derivada con primera diferencia central" << endl;
+	double dx1dc = dx.primera(xi,paso,1,0);
+	
+	cout << "La primera derivada con 1 diferencia central es: " << setprecision(5) << dx1dc << endl;
+	//Calcular la primera derivada con segunda diferencia central
+	cout << "Tabla para la primera derivada con segundas diferencias central" << endl;
+	double dx2dc = dx.primera(xi,paso,2,0);
+	
+	cout << "La primera derivada con 2 diferencias central es: " << setprecision(5) << dx2dc << endl;
 }
 
