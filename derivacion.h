@@ -67,7 +67,6 @@ namespace derivacion{
 					double yip1 = f(xi + paso);
 					double yim1 = f(xi - paso);
 					
-					cout << f.str() << endl;
 					//Imprimir la tabla
 					vector<double> x{xi-paso,xi+paso};
 					vector<double> y{yim1,yip1};

@@ -123,7 +123,7 @@ int main (int argc, char *argv[]) {
 		case 3:
 			primera_derivada("Derivacion numerica de ln(x)*cos(x) ",
 							 "ln(x)*cos(x)",
-							 "(cos(x)/x)-(sin(x)*ln(x))",
+							 "(cos(x)-(x*ln(x)*sin(x)))/x",
 							 6.35f,
 							 0.1,
 							 0);
@@ -190,19 +190,26 @@ void primera_derivada(string title,
 					  double xi,
 					  double paso,
 					  int direccion){
+	//Valor de la derivada obtenida con el metodo analitico
+	Expression df(str_dfn);
+	double valorAn = df(xi);
+	
 	cout << title << endl;
 	
 	derivada dx(str_fn);
 	
+	cout << "Valor obtenido de forma analitica: " << valorAn << endl;
 	//Calcular la primera derivada con primera diferencia central
 	cout << "Tabla para la primera derivada con primera diferencia central" << endl;
-	double dx1dc = dx.primera(xi,paso,1,0);
+	double valorNum = dx.primera(xi,paso,1,0);
 	
-	cout << "La primera derivada con 1 diferencia central es: " << setprecision(5) << dx1dc << endl;
+	cout << "La primera derivada con 1 diferencia central es: " << setprecision(5) << valorNum << endl;
+	cout << "Error relativo porcentual: " << fabs((valorAn-valorNum)/valorAn)*100.0f << endl;
 	//Calcular la primera derivada con segunda diferencia central
 	cout << "Tabla para la primera derivada con segundas diferencias central" << endl;
-	double dx2dc = dx.primera(xi,paso,2,0);
+	double valorNum2 = dx.primera(xi,paso,2,0);
 	
-	cout << "La primera derivada con 2 diferencias central es: " << setprecision(5) << dx2dc << endl;
+	cout << "La primera derivada con 2 diferencias central es: " << setprecision(5) << valorNum2 << endl;
+	cout << "Error relativo porcentual: " << fabs((valorAn-valorNum2)/valorAn)*100.0f << endl;
 }
 
