@@ -93,12 +93,14 @@ int main (int argc, char *argv[]) {
 		cout << "\n========================================" << endl;
 		cout << "Integracion Numerica" << endl;
 		cout << "========================================" << endl;
-		cout << "1. Metodo de Simpson 1/3" << endl;
-		cout << "2. Metodo de Romberg" << endl;
+		cout << "1. Metodo de Simpson 1/3 para calcular la integral de Mx" << endl;
+		cout << "2. Metodo de Simpson 1/3 para calcular la integral de My" << endl;
+		cout << "3. Metodo de Simpson 1/3 para calcular la integral de m" << endl;
+		cout << "4. Metodo de Romberg" << endl;
 		cout << "========================================" << endl;
 		cout << "Diferenciacion Numerica" << endl;
 		cout << "========================================" << endl;
-		cout << "3. Primera derivada" << endl;
+		cout << "5. Primera derivada" << endl;
 		cout << "0. Salir" << endl;
 		cout << "========================================" << endl;
 		cout << "Ingrese una opcion: ";
@@ -106,21 +108,37 @@ int main (int argc, char *argv[]) {
 		
 		switch(opcion){
 		case 1:
-			integracion_simpson("Integracion numerica de sen(x) + sen(2.5*x)^3 ",
-								"sin(x) + (sin(2.5*x))^3",
-								"sin(x) + 7.5*((~312.5*((cos(2.5*x))^2)*sin(2.5*x)) + (109.375*((sin(2.5*x))^3)))",
+			integracion_simpson("Integracion numerica de (sen(x) + sen(2.5*x)^3)^2 ",
+								"(sin(x) + (sin(2.5*x))^3)^2",
+								"2*((1875*((sin(2.5*x))^6)) - (9375*((sin(2.5*x))^4)*((cos(2.5*x))^2)) - (2568.75*((cos(2.5*x))^2)*(sin(2.5*x))*(sin(x))) + (933.8125*((sin(2.5*x))^3)*(sin(x))) - (1342.5*((sin(2.5*x))^2)*(cos(2.5*x))*(cos(x))) +(7031.25*((cos(2.5*x))^2)*((sin(2.5*x))^2)*(cos(5*x))) + (375*((cos(2.5*x))^3)*(cos(x))) - (4*cos(2*x)))",
 								0,
 								1.82584,
 								32);
 			break;
 		case 2:
-			integracion_romberg("Integracion numerica de sen(x) + sen(2.5*x)^3 ",
+			integracion_simpson("Integracion numerica de x*(sin(x) + (sin(2.5*x))^3)",
+								"x*(sin(x)+(sin(2.5*x))^3)",
+								"(x*sin(x)) - (2343.75*x*((cos(2.5*x))^2)*(sin(2.5*x))) +(820.3125*x*((sin(2.5*x))^3)) -(4*cos(x)) - (1312.5*((sin(2.5*x))^2)*(cos(2.5*x))) + (375*((cos(2.5*x))^3))",
+								0,
+								1.82584,
+								32);
+			break;
+		case 3:
+			integracion_simpson("Integracion numerica de sen(x) + sen(2.5*x)^3",
+								"sin(x) + sin(2.5*x)^3",
+								"sin(x) + 7.5*((109.375*((sin(2.5*x))^3)) -(312.5*((cos(2.5*x))^2)*(sin(2.5*x))))",
+								0,
+								1.82584,
+								32);
+			break;
+		case 4:
+			integracion_romberg("Integracion numerica de (sen(x) + sen(2.5*x)^3)^2",
 								"sin(x) + (sin(2.5*x))^3",
 								0,
 								1.82584,
 								4);
 			break;
-		case 3:
+		case 5:
 			primera_derivada("Derivacion numerica de ln(x)*cos(x) ",
 							 "ln(x)*cos(x)",
 							 "(cos(x)-(x*ln(x)*sin(x)))/x",
