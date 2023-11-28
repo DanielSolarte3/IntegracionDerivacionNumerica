@@ -96,11 +96,13 @@ int main (int argc, char *argv[]) {
 		cout << "1. Metodo de Simpson 1/3 para calcular la integral de Mx" << endl;
 		cout << "2. Metodo de Simpson 1/3 para calcular la integral de My" << endl;
 		cout << "3. Metodo de Simpson 1/3 para calcular la integral de m" << endl;
-		cout << "4. Metodo de Romberg" << endl;
+		cout << "4. Metodo de Romberg para calcular la integral de Mx" << endl;
+		cout << "5. Metodo de Romberg para calcular la integral de My" << endl;
+		cout << "6. Metodo de Romberg para calcular la integral de m" << endl;
 		cout << "========================================" << endl;
 		cout << "Diferenciacion Numerica" << endl;
 		cout << "========================================" << endl;
-		cout << "5. Primera derivada" << endl;
+		cout << "7. Primera derivada" << endl;
 		cout << "0. Salir" << endl;
 		cout << "========================================" << endl;
 		cout << "Ingrese una opcion: ";
@@ -133,12 +135,26 @@ int main (int argc, char *argv[]) {
 			break;
 		case 4:
 			integracion_romberg("Integracion numerica de (sen(x) + sen(2.5*x)^3)^2",
-								"sin(x) + (sin(2.5*x))^3",
+								"(sin(x) + (sin(2.5*x))^3)^2",
 								0,
 								1.82584,
-								4);
+								6);
 			break;
 		case 5:
+			integracion_romberg("Integracion numerica de x*(sin(x) + (sin(2.5*x))^3) ",
+								"x*(sin(x) + (sin(2.5*x))^3)",
+								0,
+								1.82584,
+								6);
+			break;
+		case 6:
+			integracion_romberg("Integracion numerica de sen(x) + sen(2.5*x)^3",
+								"sin(x) + sin(2.5*x)^3",
+								0,
+								1.82584,
+								6);
+			break;
+		case 7:
 			primera_derivada("Derivacion numerica de ln(x)*cos(x) ",
 							 "ln(x)*cos(x)",
 							 "(cos(x)-(x*ln(x)*sin(x)))/x",
